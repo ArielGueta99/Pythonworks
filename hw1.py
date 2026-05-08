@@ -11,18 +11,25 @@ for currentCase in range(1, numOfCases + 1):
         userInputSplit = userInputRaw.split()
 
         try:
+            # a , b, n must be exactly 3 digits.
+            if len(userInputSplit)!=3:
+                print("Error: there must be exactly 3 values")
+                invalidCases.append(userInputRaw)
+                break
             a, b, n = map(int, userInputSplit)
-            if int(b) == 0:
+            # b shouldn't be zero
+            if b == 0:
                 print("Error: denominator cannot be zero")
                 invalidCases.append((a, b, n))
                 break
-            if n < 0:
+            # n should be int already, if it gives out False, it's less than zero.
+            if not n:
                 print("Error: power must be non-negative")
                 invalidCases.append((a, b, n))
                 break
-
+        #exception from map, values mst be ints
         except ValueError:
-            print("Error: all values must be integers")
+            print("Error: all values must be integers.")
             invalidCases.append(userInputRaw)
             break
 
