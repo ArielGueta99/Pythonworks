@@ -1,3 +1,5 @@
+import math
+
 numOfCases = int(input("How many cases would you like to enter? "))
 validCases = []
 invalidCases = []
@@ -11,25 +13,18 @@ for currentCase in range(1, numOfCases + 1):
         userInputSplit = userInputRaw.split()
 
         try:
-            # a , b, n must be exactly 3 digits.
-            if len(userInputSplit)!=3:
-                print("Error: there must be exactly 3 values")
-                invalidCases.append(userInputRaw)
-                break
             a, b, n = map(int, userInputSplit)
-            # b shouldn't be zero
-            if b == 0:
+            if int(b) == 0:
                 print("Error: denominator cannot be zero")
                 invalidCases.append((a, b, n))
                 break
-            # n should be int already, if it gives out False, it's less than zero.
-            if not n:
+            if n < 0:
                 print("Error: power must be non-negative")
                 invalidCases.append((a, b, n))
                 break
-        #exception from map, values mst be ints
+
         except ValueError:
-            print("Error: all values must be integers.")
+            print("Error: all values must be integers")
             invalidCases.append(userInputRaw)
             break
 
@@ -38,8 +33,22 @@ for currentCase in range(1, numOfCases + 1):
 
 # calculations
 for i in validCases:
+    a = i[0]
+    b = i[1]
+    n = i[2]
     print("----------------------")
     print(f"Current case: {i}")
+    print(f"Original fraction: {a}/{b}")
+    gcd = math.gcd(i[0], i[1])  # also returns 1 if numerator is 0
+    if gcd == 1:
+        print(f"Reduced fraction: {a}/{b}")
+    else:
+        print(f"Reduced fraction: {int(a/gcd)}/{int(b/gcd)}")
+
+    # stopped here!
+    for k in range(n + 1):
+        print(f"this is n: {n} this is k: {k} then n choose k is: {math.comb(n, k)}")
+    # print(f"Symbolic binomial expansion: {expansion}")
 
 # summary
 print("========================")
